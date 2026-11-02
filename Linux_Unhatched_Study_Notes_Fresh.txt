@@ -1,0 +1,1492 @@
+LINUX UNHATCHED — STUDY NOTES Topic: Basic Command Syntax, Directories,
+Listing Files, and Administrative Access
+
+1. THE
+COMMAND LINE INTERFACE (CLI)
+
+A command is a software program that performs an action when you run it
+in the terminal (also called the Command Line Interface or CLI).
+
+When you enter a command and press Enter: 1. The operating system runs
+the command. 2. The command can receive input. 3. It performs an action
+or processes data. 4. It may display output on the screen.
+
+The CLI is commonly used to administer computers and servers, especially
+Linux systems.
+
+The ls command displays the files and directories in the current
+location.
+
+IMPORTANT: Linux commands are case-sensitive. ls = correct command LS =
+different command; it will not work as ls
+
+Use lowercase letters unless the command specifically requires
+otherwise.
+
+2. BASIC
+COMMAND SYNTAX
+
+Most Linux commands follow this general pattern:
+
+command [options...] [arguments...]
+
+Meaning:
+
+- command: The name of the program you want to run.
+- options: Modify how the command behaves.
+- arguments: Tell the command which file, directory, user, or other item to work with.
+
+The square brackets indicate optional parts. You do not type the
+brackets themselves.
+
+Breakdown: - ls -> command - -l -> option; displays detailed
+information - Documents -> argument; tells ls which directory to list
+
+A command can be used: - With no options or arguments. - With only an
+argument. - With only an option. - With both options and arguments.
+
+If no option or argument is supplied, the command uses its default
+behaviour.
+
+3.
+ARGUMENTS
+
+An argument specifies what the command should act on.
+
+Here, Documents is the argument. The command displays the contents of
+the Documents directory instead of listing the current directory.
+
+A command can accept special or ordinary arguments depending on its
+purpose.
+
+Remember: - An argument tells the command WHAT to work on. - An option
+changes HOW the command works.
+
+4. OPTIONS
+
+Options modify the behaviour or output of a command.
+
+The -l option displays a long listing, which includes details such as:
+file type, permissions, owner, group, size, date/time, and filename.
+
+Some options are chosen because they help you remember their purpose.
+
+Multiple options can be used together.
+
+Separate options: ls -l -r
+
+Combined options: ls -lr
+
+These commands have the same effect: ls -l -r ls -lr ls -rl
+
+Options are command-specific. The same option letter may mean something
+different for another command.
+
+By default, ls normally sorts names alphabetically. The -r option
+reverses the selected/default order.
+
+5. PRINTING
+THE WORKING DIRECTORY — pwd
+
+The pwd command means “print working directory”.
+
+It displays the full path of the directory where you are currently
+located.
+
+Command: pwd
+
+This tells you that the current location is the sysadmin user’s home
+directory.
+
+Use pwd whenever you are unsure where you are in the filesystem.
+
+6. LINUX
+FILESYSTEM AND DIRECTORIES
+
+A directory is similar to a folder in Windows or macOS. It stores files
+and other directories.
+
+Linux uses a hierarchical filesystem structure: - The top-level
+directory is called the root directory. - The root directory is
+represented by a single forward slash: / - Other directories and files
+are organised underneath it.
+
+Some common directories directly under / include: /bin /boot /dev /etc
+/home /lib /media /mnt /opt
+
+A user’s home directory is usually located inside /home.
+
+Inside the sysadmin home directory, there may be folders such as:
+Desktop Documents Downloads Music Pictures Public Templates Videos
+
+A path describes the location of a file or directory. Directory names in
+a path are separated by the forward slash character /.
+
+7. CHANGING
+DIRECTORIES — cd
+
+The cd command means “change directory”.
+
+It moves you from your current directory to another directory.
+
+General syntax: cd [options] [path]
+
+If Documents is inside your current directory, this command moves you
+into it.
+
+You can verify your new location with: pwd
+
+To move to the root directory: cd /
+
+The prompt is showing that you are now inside Documents.
+
+8. ABSOLUTE
+PATHS
+
+An absolute path gives the complete location of a file or directory
+starting from the root directory.
+
+An absolute path ALWAYS begins with /.
+
+This path means: 1. Start at the root directory /. 2. Open the home
+directory. 3. Open the sysadmin directory. 4. Open the Documents
+directory.
+
+You can use an absolute path with cd from almost any current location:
+
+cd /home/sysadmin
+
+Afterwards, verify the location: pwd
+
+An absolute path does not depend on your current directory.
+
+9. RELATIVE
+PATHS
+
+A relative path describes a location starting from your current
+directory.
+
+A relative path does NOT begin with /.
+
+Suppose your current location is: /home/sysadmin/Documents
+
+To enter the School directory inside Documents: cd School
+
+To enter the Art directory inside School: cd School/Art
+
+You can also perform the movement in two steps: cd School cd Art
+
+Both approaches take you to the same location, assuming the directories
+exist.
+
+Key difference: - Absolute path: starts from /, the root directory. -
+Relative path: starts from your current directory.
+
+10. USEFUL
+PATH SHORTCUTS
+
+A. Two dots: ..
+
+The .. shortcut represents the parent directory (one directory level
+above the current directory).
+
+Run: cd ..
+
+You will move up one level to: /home/sysadmin/Documents/School
+
+B. One dot: .
+
+The . shortcut represents the current directory.
+
+It is useful in many Linux commands, although it is not usually needed
+for a simple cd into the current directory.
+
+C. Tilde: ~
+
+The ~ character represents the current user’s home directory.
+
+For the sysadmin user, it represents: /home/sysadmin
+
+From any directory, run: cd ~
+
+This takes you back to your home directory.
+
+Quick memory trick: / -> root directory .. -> one directory up (parent)
+. -> current directory ~ -> current user’s home directory
+
+11. LISTING
+FILES — ls
+
+The ls command lists the contents of a directory.
+
+Command: ls
+
+By default, it lists files and directories in the current directory.
+
+To list the contents of a particular directory: ls Documents
+
+To display detailed information: ls -l
+
+To reverse the listing order: ls -r
+
+To combine long listing and reverse order: ls -l -r or: ls -lr
+
+To sort by modification time: ls -lt
+
+To sort by file size: ls -lS
+
+You can also provide a path: ls -l /var/log/
+
+This displays a detailed listing of the /var/log directory.
+
+12.
+UNDERSTANDING THE ls -l OUTPUT
+
+-rw-r--r-- 1 root root 18047 Dec 20 2017 alternatives.log
+
+The output contains several fields:
+
+1. File type and permissions
+2. Hard link count
+3. User owner
+4. Group owner
+5. File size
+6. Timestamp (last modification date/time)
+7. Filename
+
+A. FILE TYPE
+
+The first character indicates the type of item.
+
+Common symbols:
+
+d Directory - Regular file l Symbolic link s Socket p Pipe b Block device file c Character device file
+
+B. PERMISSIONS
+
+The characters after the file-type symbol represent permissions. They
+determine how users can access a file or directory.
+
+The detailed study of permission characters is a separate topic.
+
+C. HARD LINK COUNT
+
+The number after the permissions indicates how many hard links point to
+the file. Hard links are an additional filesystem concept.
+
+D. USER OWNER
+
+This field shows the user who owns the file.
+
+E. GROUP OWNER
+
+This field shows the group that owns the file.
+
+F. FILE SIZE
+
+This field shows the size of the file. In a long listing, the size is
+generally shown in bytes for regular files. Directory sizes can
+represent filesystem storage information rather than the total size of
+all their contents.
+
+G. TIMESTAMP
+
+This indicates when the file’s contents were last modified.
+
+H. FILENAME
+
+The final field contains the name of the file or directory.
+
+Memory order for ls -l: Type/Permissions | Links | User | Group | Size |
+Date/Time | Name
+
+13.
+ADMINISTRATIVE ACCESS
+
+Some Linux commands deal with sensitive information or perform important
+system-level operations.
+
+Ordinary users may not have permission to execute these commands.
+
+The root user is the Linux superuser and has extensive administrative
+privileges.
+
+Two important commands for administrative access are: su sudo
+
+14. THE su
+COMMAND
+
+The su command means “switch user”.
+
+It allows you to temporarily act as another user by opening a new shell.
+
+General syntax: su [OPTIONS] [USERNAME]
+
+If you do not specify a username, su normally attempts to switch to
+root.
+
+After entering the root account’s password successfully, the prompt
+changes to indicate that you are now root.
+
+To return to your previous account: exit
+
+The exit command closes the root shell and returns you to the previous
+user.
+
+LOGIN SHELL OPTION
+
+Using a hyphen with su: su -
+
+is recommended when switching to root for a login shell. It loads the
+target user’s login environment and settings.
+
+Related forms: su - su -l su –login
+
+These request a login shell.
+
+15. THE
+sudo COMMAND
+
+The sudo command allows an authorised user to execute a specific command
+with another user’s privileges, commonly root privileges.
+
+General syntax: sudo [OPTIONS] COMMAND
+
+The command is executed with administrative privileges if the user is
+permitted to use sudo.
+
+Important difference:
+
+A. Using su: su -
+
+- Switches to another user.
+- Opens a new shell.
+- You remain that user until you exit the shell.
+
+B. Using sudo: sudo command
+
+- Runs the specified command with elevated privileges.
+- Does not normally open a new root shell.
+- After the command finishes, you remain logged in as your original user.
+
+This runs ls with elevated privileges, if authorised.
+
+To run a root shell, a commonly used form is: sudo -i
+
+Use administrative privileges carefully. A command run as root can make
+system-wide changes.
+
+16. QUICK
+COMPARISON TABLE
+
+Command Purpose
+
+pwd Display the current working directory ls List files and directories
+ls Documents List the contents of Documents ls -l Display a detailed
+listing ls -r Reverse the listing order ls -lt Sort by modification time
+ls -lS Sort by file size cd Documents Move into Documents cd / Move to
+the root directory cd .. Move one directory up cd . Refer to the current
+directory cd ~ Move to the user’s home directory su - Switch to root
+with a login shell exit Leave the current shell sudo command Run a
+command with elevated privileges
+
+17.
+IMPORTANT DIFFERENCES TO REMEMBER
+
+1. Command vs option vs argument - Command: what program to run. - Option: how the program should behave. - Argument: what item the program should work on.
+2. Absolute path vs relative path - Absolute path begins with /. - Relative path starts from the current directory.
+3. pwd vs ls - pwd tells you WHERE you are. - ls tells you WHAT is inside a directory.
+4. su vs sudo - su switches to another user and opens a shell. - sudo runs a particular command with elevated privileges.
+5. . vs .. vs ~ - . means current directory. - .. means parent directory. - ~ means home directory.
+6. Linux is case-sensitive - ls and LS are not the same.
+
+18.
+PRACTICE COMMANDS
+
+Try these commands in order and observe the output:
+
+pwd ls ls -l ls -r ls -lt cd Documents pwd ls cd .. pwd cd ~ pwd cd / ls cd /home/sysadmin pwd
+
+For administrative access, only practise on the training environment:
+
+su - exit sudo ls
+
+Always check your current location with pwd before using a path if you
+are unsure where you are.
+19. FILE PERMISSIONS — OWNER, GROUP AND OTHERS
+
+Linux permissions control who can read, modify, or execute a file and who
+can access a directory.
+
+A long listing such as:
+
+-rw-r--r-- 1 sysadmin sysadmin 647 Dec 20 2017 hello.sh
+
+contains three permission groups after the file-type character:
+
+- User/owner (u): the account that owns the file.
+- Group (g): members of the group that owns the file.
+- Others (o): everyone else.
+
+The permission groups are checked in this order. If you are the file's
+owner, the user permissions apply. Linux does not also add the group or
+other permissions to the owner's permissions.
+
+-rw-r--r--
+
+- First character - means a regular file.
+- rw- means the owner can read and write.
+- r-- means the group can read only.
+- r-- means others can read only.
+
+PERMISSION TYPES
+
+Permission Symbol Meaning for a file Meaning for a directory
+Read r Read or copy file contents List names; execute is needed for detailed access
+Write w Modify or overwrite contents Add or remove entries; execute is also needed
+Execute x Run the file/program Enter/traverse the directory and access items by name
+
+For a directory, write permission normally needs execute permission as
+well to create, remove, or rename entries inside it.
+
+-r--rw-rwx 1 sysadmin staff 999 Apr 10 2013 /home/sysadmin/test
+
+The owner has only read permission (r--), the group has read and write
+permissions (rw-), and others have read, write and execute permissions
+(rwx). Even if sysadmin belongs to the staff group, the owner permission
+set applies because sysadmin owns the file. Group permissions do not add
+to the owner's permissions.
+
+20. CHANGING FILE PERMISSIONS — chmod
+
+The chmod command changes the permissions (also called access modes) of
+a file or directory. Normally, only root or the file's owner can change
+its permissions.
+
+General syntax:
+
+chmod [SET][ACTION][PERMISSIONS] FILE
+
+There are two common approaches: symbolic and octal (numeric). These
+notes cover the symbolic method.
+
+SYMBOLS FOR THE PERMISSION SET
+
+u User/owner g Group o Others a All (user, group and others)
+
+ACTION SYMBOLS
+
++ Add the permission, if necessary = Set exactly the specified permissions - Remove the permission, if necessary
+
+PERMISSION SYMBOLS
+
+r Read w Write x Execute
+
+chmod u+x hello.sh Add execute permission for the owner chmod g+w report.txt Add write permission for the group chmod o-r secret.txt Remove read permission for others chmod a+x script.sh Add execute permission for everyone chmod u=rw file.txt Set owner permissions to exactly read/write
+
+You can specify more than one change, separated by commas:
+
+chmod u+x,g+rx script.sh
+
+Initially, hello.sh has permissions like:
+
+-rw-r--r-- 1 sysadmin sysadmin 647 Dec 20 2017 hello.sh
+
+No permission group has execute permission, so running it fails:
+
+./hello.sh
+
+-bash: ./hello.sh: Permission denied
+
+The current user is sysadmin and owns the file. Add execute permission
+to the owner:
+
+chmod u+x hello.sh
+
+Check the result:
+
+ls -l hello.sh -rwxr--r-- 1 sysadmin sysadmin 647 Dec 20 2017 hello.sh
+
+Now run the script from the current directory:
+
+./hello.sh
+
+21. CHANGING FILE OWNERSHIP — chown
+
+The chown command changes the owner of a file or directory. Changing the
+user owner requires administrative privileges. A regular user cannot
+transfer file ownership to another user, even for a file they created.
+Changing group ownership can generally be done by root or by the file's
+owner, subject to system permissions.
+
+General syntax:
+
+chown [OPTIONS] OWNER FILE
+
+cd ~/Documents ls -l
+
+The third column of ls -l shows the user owner; the fourth column shows
+the group owner.
+
+To change hello.sh's owner to root:
+
+sudo chown root hello.sh
+
+Enter the sudo password if prompted. Then verify:
+
+ls -l hello.sh
+
+-rwxr--r-- 1 root sysadmin 647 Dec 20 2017 hello.sh
+
+If sysadmin now tries to run ./hello.sh without elevated privileges,
+the attempt can fail: sysadmin is no longer the owner and the group and
+other permission sets do not include execute permission. Run it as root
+with:
+
+sudo ./hello.sh
+
+Use chown carefully because changing ownership can affect who can access
+or execute a file.
+
+22. VIEWING FILE CONTENTS — cat, head AND tail
+
+The cat command (short for concatenate) displays the contents of a file.
+It is convenient for small files whose output fits on the screen.
+
+Syntax:
+
+cat [OPTIONS] FILE
+
+cat animals.txt
+
+1 retriever 2 badger 3 bat 4 wolf 5 eagle
+
+For large files, cat may print too much output to read comfortably.
+Pager commands such as more and less let you pause and scroll through
+long output.
+
+The head command displays the beginning of a file. The tail command
+displays the end of a file.
+
+Syntax:
+
+head [OPTIONS] FILE tail [OPTIONS] FILE
+
+By default, head and tail display ten lines.
+
+To display a chosen number of lines, use -n:
+
+head -n 5 alpha.txt First five lines tail -n 5 alpha.txt Last five lines
+
+Useful distinction:
+
+- cat: displays the whole file.
+- head: displays the first lines.
+- tail: displays the last lines.
+- more / less: let you scroll through long output.
+
+23. COPYING FILES — cp
+
+The cp command creates a copy of a file. Copies are useful for keeping a
+backup before editing, transferring files, or using an existing file as
+a template.
+
+Syntax:
+
+cp [OPTIONS] SOURCE DESTINATION
+
+The command needs at least two arguments: the source and the destination.
+
+cd ~/Documents cp /etc/passwd .
+
+A single dot (.) represents the current directory. The copied file will
+be named passwd in Documents. Check with:
+
+ls
+
+To copy a file to a different directory, provide that directory as the
+destination. Make sure you have execute permission to access the source
+directory, read permission on the source file, and write plus execute
+permission on the destination directory.
+
+Your home directory and /tmp are common locations where a regular user
+usually has permission to create files.
+
+24. COPYING DATA AT THE BLOCK LEVEL — dd
+
+The dd command copies data at a low level. It can copy files, disks, or
+partitions, create files of a chosen size, and work with raw devices.
+
+Syntax:
+
+dd [OPTIONS] OPERAND
+
+Common operands:
+
+if=FILE Input file: where data is read from of=FILE Output file: where data is written bs=SIZE Block size used for reading/writing count=N Number of blocks to copy
+
+Size suffixes include K, M, G and T for kilobytes, megabytes, gigabytes
+and terabytes.
+
+dd if=/dev/zero of=/tmp/swapex bs=1M count=50
+
+Meaning:
+
+- if=/dev/zero reads an unlimited stream of zero bytes.
+- of=/tmp/swapex writes the data to that output file.
+- bs=1M uses blocks of one megabyte.
+- count=50 writes 50 blocks.
+
+The output may report 50+0 records in, 50+0 records out, and 52,428,800
+bytes copied (50 MiB, often described approximately as 52 MB).
+
+dd if=/dev/sda of=/dev/sdb
+
+WARNING: dd can overwrite or destroy data on disks and partitions. A
+wrong input/output device can cause permanent data loss. Do not run disk
+copy or wipe commands unless you have verified the device names and have
+a safe backup. Practise only with harmless test files in a training VM.
+
+25. MOVING AND RENAMING FILES — mv
+
+The mv command moves a file from one location to another. It can also
+rename a file when the source and destination are in the same directory.
+
+Syntax:
+
+mv SOURCE DESTINATION
+
+Move people.csv into the Work directory:
+
+mv people.csv Work ls Work
+
+The file keeps its original name when moved into a directory without a
+new filename being specified.
+
+Move several files into School (the destination is the final argument):
+
+mv numbers.txt letters.txt alpha.txt School ls School
+
+Rename animals.txt to zoo.txt in the same directory:
+
+mv animals.txt zoo.txt
+
+Remember: mv changes the file's location/name; cp creates another copy.
+
+26. REMOVING FILES AND DIRECTORIES — rm
+
+The rm command deletes files and directories. Unlike a desktop trash
+folder, files removed with rm are generally permanently deleted.
+
+Syntax:
+
+rm [OPTIONS] FILE
+
+Remove a regular file:
+
+rm Linux.txt
+
+Trying to list the removed file will show that it no longer exists.
+
+By default, rm does not remove directories. To remove a directory and
+its contents, use the recursive option:
+
+rm -r Work
+
+The -R option is also recursive:
+
+rm -R Work
+
+WARNING: rm -r removes the directory and everything underneath it. Check
+the path carefully before pressing Enter. Never experiment with rm -r
+on important folders or system directories.
+
+To delete a file inside a directory, a user needs write and execute
+permission on that directory. Regular users usually have these
+permissions in their home directory and its subdirectories.
+
+27. FILTERING INPUT — grep
+
+The grep command searches text and prints the lines that match a pattern.
+It is useful when a file is too large to read line by line.
+
+Syntax:
+
+grep [OPTIONS] PATTERN [FILE]
+
+grep sysadmin passwd
+
+This prints the line in passwd containing the text sysadmin. The file
+/etc/passwd stores account information; its format is beyond the scope
+of these introductory notes.
+
+The pattern can be a simple word or a regular expression.
+
+28. REGULAR EXPRESSIONS — BASIC AND EXTENDED
+
+A regular expression (regex) is a pattern used to search for matching
+text. grep supports basic regular expressions. Extended expressions
+usually require egrep or grep -E.
+
+BASIC REGEX CHARACTERS
+
+. Any one character (except a newline) [abc] Any one character listed inside the brackets [^abc] Any one character NOT listed inside the brackets * Zero or more occurrences of the preceding character/pattern ^ Beginning-of-line anchor when placed first in the pattern $ End-of-line anchor when placed last in the pattern
+
+EXTENDED REGEX CHARACTERS (egrep or grep -E)
+
++ One or more occurrences of the preceding pattern ? The preceding pattern is optional (zero or one) { } Specify minimum, maximum, or exact repetition counts | Alternation (logical OR) ( ) Group patterns together
+
+grep -E 'cat|dog' file.txt
+
+This matches lines containing cat or dog.
+
+ANCHORS: BEGINNING AND END OF A LINE
+
+The ^ character matches the beginning of a line when it is the first
+character in the pattern:
+
+grep '^root' /etc/passwd
+
+This finds lines that start with root.
+
+The $ character matches the end of a line when it is the last character
+in the pattern:
+
+grep 'r$' alpha-first.txt
+
+B is for Bear F is for Flower
+
+MATCH A SINGLE CHARACTER WITH DOT (.)
+
+grep 'r..f' red.txt
+
+reef roof
+
+Find four-character words beginning with r and ending with d:
+
+grep 'r..d' red.txt
+
+Find lines containing at least four characters using four dots:
+
+grep '....' red.txt
+
+CHARACTER SETS WITH SQUARE BRACKETS
+
+A set matches one character from the listed characters:
+
+grep '[0-9]' profile.txt
+
+This finds lines containing at least one digit (0 through 9). The same
+set can be written [0123456789].
+
+To find lines containing at least one non-digit character, use a
+negated set:
+
+grep '[^0-9]' profile.txt
+
+The ^ must be the first character inside the square brackets to negate
+the set. This finds lines containing a character other than a digit; it
+does not mean that the entire line contains no digits.
+
+grep '[.]' profile.txt
+
+ZERO OR MORE OCCURRENCES WITH ASTERISK (*)
+
+The * applies to the character or pattern immediately before it and
+matches zero or more occurrences.
+
+grep 're*d' red.txt
+
+This matches red, reed, rd, and other strings with r, zero or more e's,
+and then d.
+
+A character set can be repeated too:
+
+grep 'r[oe]*d' red.txt
+
+IMPORTANT REGEX TIPS
+
+- Quote patterns with single quotes to stop the shell interpreting special characters before grep receives them.
+- The position of ^ and $ matters: ^ anchors the start; $ anchors the end.
+- A dot means any single character, but [.] means a literal period.
+- [0-9] means one digit; [^0-9] means one non-digit character.
+- * means zero or more of the immediately preceding pattern.
+- Use grep -E when you need extended operators such as +, ?, |, or groups.
+
+30. STANDARD INPUT AND THE grep COMMAND
+
+STANDARD INPUT (STDIN)
+
+Standard input is the information a command receives while it is running.
+By default, standard input normally comes from the keyboard.
+
+If you run grep without giving it a filename, grep reads what you type
+directly from standard input. This lets you search text interactively.
+
+grep
+
+After running this command, type some lines. grep checks each line as
+you enter it and displays lines that match its search pattern. Press
+Ctrl+D when you want to finish entering input and return to the prompt.
+
+The important idea is:
+
+- A filename supplied to grep: grep reads from that file.
+- No filename supplied: grep reads from standard input, usually the keyboard.
+
+grep 'hello' notes.txt
+
+This displays lines in notes.txt that contain hello.
+
+grep
+
+You can then type text and provide the pattern when using the command
+in the course's interactive demonstration. Press Ctrl+D to end input.
+
+31. SHUTTING DOWN THE SYSTEM — shutdown
+
+The shutdown command arranges for the system to be brought down safely.
+Logged-in users are notified that the system is going down. During the
+final five minutes before shutdown, new logins are prevented.
+
+General syntax:
+
+shutdown [OPTIONS] TIME [MESSAGE]
+
+The command requires a time argument. Common ways to specify the time
+include:
+
+- now: begin the shutdown immediately.
+- hh:mm: specify a time of day, using a 24-hour clock.
+- +minutes: wait the specified number of minutes.
+
+shutdown now shutdown 01:51 shutdown +1
+
+You can also provide an optional message that will be shown to users:
+
+shutdown +1 "Goodbye World!"
+
+ADMINISTRATIVE ACCESS
+
+Shutting down a system requires administrative privileges. In the
+training environment, the course switches to the root account first:
+
+su -
+
+Enter the root password when prompted. The prompt changes from something
+like sysadmin@localhost:~$ to root@localhost:~#.
+
+Then run the shutdown command.
+
+IMPORTANT COURSE NOTE
+
+The virtual machines used by the course do not actually shut down. The
+command is demonstrated for learning purposes and the terminal returns
+to the prompt after the countdown.
+
+CHECKING THE SYSTEM TIME
+
+Use the date command to check the time configured on the Linux machine:
+
+date
+
+The output may show the weekday, month, day, time, timezone and year.
+UTC means Coordinated Universal Time. The machine's timezone may differ
+from your local timezone.
+
+32. NETWORK CONFIGURATION — ifconfig
+
+The ifconfig command means interface configuration. It displays
+information about network interfaces and can also temporarily modify
+some network settings.
+
+Syntax:
+
+ifconfig [OPTIONS]
+
+ifconfig
+
+The output may show network interfaces such as:
+
+- eth0: a wired Ethernet network interface.
+- lo: the loopback interface.
+
+Important fields in the output:
+
+- inet addr: the IPv4 address assigned to the interface.
+- Bcast: the broadcast address.
+- Mask: the network subnet mask.
+- UP: the interface is active.
+- RX packets: packets received.
+- TX packets: packets transmitted.
+
+inet addr:192.168.1.2 Bcast:192.168.1.255 Mask:255.255.255.0
+
+The actual addresses on your machine may be different.
+
+THE LOOPBACK INTERFACE
+
+The lo interface is called the loopback device. It allows a computer
+to send network data to itself. Its commonly used IPv4 address is:
+
+127.0.0.1
+
+WIRELESS INTERFACES
+
+The iwconfig command is similar to ifconfig, but it is designed for
+wireless network interfaces.
+
+33. TESTING NETWORK CONNECTIVITY — ping
+
+The ping command checks whether another computer can be reached over
+a network. It sends small packets to the destination and waits for a
+reply.
+
+Syntax:
+
+ping [OPTIONS] HOST_OR_IP_ADDRESS
+
+ping 192.168.1.2
+
+If the destination responds, you may see replies showing:
+
+- The destination IP address.
+- The packet sequence number.
+- TTL (Time To Live).
+- The time taken for the reply to return.
+
+To limit the command to four requests, use -c 4:
+
+ping -c 4 192.168.1.2
+
+The command sends four packets and then displays statistics, including
+packets transmitted, packets received and packet loss.
+
+4 packets transmitted, 4 received, 0% packet loss
+
+If the destination cannot be reached, you may see:
+
+Destination Host Unreachable
+
+This means the machine could not reach the requested destination.
+
+IMPORTANT NOTES
+
+- ping can continue sending packets until you stop it with Ctrl+C.
+- Use -c followed by a number to limit the number of packets.
+- You can ping an IP address or a hostname such as yahoo.com.
+- A successful hostname ping also indicates that name resolution worked.
+- Some systems block ping requests for security reasons. Therefore, a failed ping does not always prove that the remote machine is offline.
+
+After completing the course demonstration, leave the root account:
+
+exit
+
+This returns you to the previous user account.
+
+34. VIEWING PROCESSES — ps
+
+A process is a program that is currently running on the system. Whenever
+you execute a command, Linux creates a process for it.
+
+The ps command displays information about running processes.
+
+Syntax:
+
+ps [OPTIONS]
+
+By default, ps displays processes associated with the current terminal.
+
+ps
+
+The output commonly includes these columns:
+
+- PID: Process ID, a unique number used to identify the process.
+- TTY: The terminal associated with the process.
+- TIME: The amount of CPU time used by the process.
+- CMD: The command that started the process.
+
+VIEWING ALL PROCESSES
+
+To display every process on the system, use the -e option:
+
+ps -e
+
+This can show system processes as well as commands started by users.
+
+DISPLAYING MORE DETAILS
+
+Use -f for a full-format listing:
+
+ps -ef
+
+This displays additional information, including:
+
+- UID: The user who owns the process.
+- PID: The process ID.
+- PPID: The parent process ID (the process that started it).
+- C: CPU utilisation information.
+- STIME: The time the process started.
+- TTY: The terminal associated with it, if any.
+- TIME: CPU time used.
+- CMD: The command and its arguments.
+
+QUICK COMPARISON
+
+ps Processes associated with the current terminal ps -e All processes ps -ef All processes in a detailed format
+
+35. PACKAGE MANAGEMENT
+
+Package management is the process of installing, updating, searching for
+and removing software on a Linux system.
+
+A package is a collection of files and information needed to install a
+software program.
+
+Linux distributions use different package-management systems. Ubuntu
+uses the Debian package system.
+
+Two important tools are:
+
+- dpkg: the lower-level Debian package management tool.
+- apt-get: a higher-level tool that makes package management easier.
+
+The course environment uses Ubuntu.
+
+ADMINISTRATIVE ACCESS
+
+Many package-management commands need administrative privileges. Use
+sudo before the command when your account is authorised to do so.
+
+36. INSTALLING PACKAGES
+
+Before installing software, it is good practice to refresh the local list
+of available packages.
+
+Run:
+
+sudo apt-get update
+
+This updates the package information stored on your machine. It does not
+normally install or upgrade the software itself.
+
+SEARCHING FOR A PACKAGE
+
+Use apt-cache search to find packages by keyword:
+
+apt-cache search [keyword]
+
+apt-cache search cow
+
+INSTALLING A PACKAGE
+
+Use apt-get install followed by the package name:
+
+sudo apt-get install cowsay
+
+Linux may ask for your password. It may then display the package that
+will be installed, the required download size and the additional disk
+space needed. Confirm the installation when prompted.
+
+After installation, you can run:
+
+cowsay 'NDG Linux Unhatched'
+
+The cowsay program displays the supplied text inside a speech bubble
+with an ASCII-art cow.
+
+37. UPDATING PACKAGES
+
+Package updates help keep installed software current.
+
+There are two important commands:
+
+sudo apt-get update sudo apt-get upgrade
+
+STEP 1: REFRESH THE PACKAGE LIST
+
+sudo apt-get update
+
+This downloads the latest package information from the configured
+software repositories.
+
+STEP 2: UPGRADE INSTALLED PACKAGES
+
+sudo apt-get upgrade
+
+This checks installed packages and upgrades them when newer versions
+are available.
+
+Remember the difference:
+
+- apt-get update refreshes the list of available package versions.
+- apt-get upgrade installs available updates for installed packages.
+
+The update command does not itself upgrade installed applications.
+
+38. REMOVING PACKAGES
+
+The apt-get tool provides two common ways to remove software.
+
+REMOVE A PACKAGE
+
+sudo apt-get remove [package]
+
+This removes the program but generally keeps its configuration files.
+
+PURGE A PACKAGE
+
+sudo apt-get purge [package]
+
+This removes the program and its package configuration files.
+
+sudo apt-get purge cowsay
+
+The system displays what will be removed and asks for confirmation.
+Enter Y when prompted if you want to continue.
+
+Quick comparison:
+
+apt-get remove Removes the package; keeps configuration files. apt-get purge Removes the package and its configuration files.
+
+39. UPDATING USER PASSWORDS — passwd
+
+The passwd command is used to change a user's password.
+
+Syntax:
+
+passwd [OPTIONS] [USER]
+
+A normal user can change their own password. The root user can change
+the password of any user.
+
+CHANGING YOUR OWN PASSWORD
+
+If you are logged in as sysadmin, run:
+
+passwd
+
+The system asks for:
+
+5. Your current UNIX password.
+6. Your new UNIX password.
+7. Your new password again for confirmation.
+
+For security reasons, the terminal does not display characters while
+you type a password. This is normal.
+
+VIEWING PASSWORD STATUS
+
+Use the -S option to display password status information:
+
+passwd -S sysadmin
+
+The output contains fields such as:
+
+- User name: the account name.
+- Password status: P means a usable password. L means the password is locked. NP means no password is set.
+- Change date: the date the password was last changed.
+- Minimum: minimum number of days before the password can be changed.
+- Maximum: maximum number of days before the password expires.
+- Warn: number of days before expiry when a warning is given.
+- Inactive: number of days after expiry before the account is disabled.
+
+CHANGING ANOTHER USER'S PASSWORD AS ROOT
+
+First switch to root:
+
+su -
+
+Then specify the user whose password you want to change:
+
+passwd sysadmin
+
+Enter the new password twice when prompted.
+
+Finally, leave the root account:
+
+exit
+
+40. INPUT AND OUTPUT REDIRECTION
+
+Redirection changes where a command receives its input or sends its
+output.
+
+Normally, a command reads input from the keyboard and displays output
+on the terminal. Redirection allows the input or output to be connected
+to a file or another destination.
+
+THE THREE STANDARD FILE DESCRIPTORS
+
+5. Standard Input (STDIN) The information a command receives. By default, it usually comes from the keyboard.
+
+6. Standard Output (STDOUT) The normal output produced by a command. By default, it appears on the terminal.
+
+7. Standard Error (STDERR) Error messages produced by a command. By default, they also appear on the terminal, but they are separate from standard output.
+
+ls ~/Documents
+
+The command receives the path as an argument.
+
+ls
+
+Displays the contents of the current directory as standard output.
+
+ls fakefile
+
+If fakefile does not exist, an error message is displayed as standard
+error.
+
+REDIRECTING STANDARD OUTPUT WITH >
+
+The greater-than symbol redirects standard output to a file.
+
+General syntax:
+
+COMMAND > FILE
+
+cd ~/Documents cat food.txt
+
+Suppose food.txt contains:
+
+Food is good.
+
+To save the output in a new file:
+
+cat food.txt > newfile1.txt
+
+The output is written to newfile1.txt instead of being displayed on
+the terminal.
+
+Check the new file:
+
+cat newfile1.txt
+
+You should see:
+
+Food is good.
+
+IMPORTANT: OVERWRITING WITH >
+
+If the destination file already exists, a single > replaces its existing
+contents with the new output. Be careful because old content can be lost.
+
+USING echo
+
+The echo command prints text to standard output.
+
+echo "Hello"
+
+Output:
+
+Hello
+
+You can redirect the text into a file:
+
+echo "I like food." > newfile1.txt
+
+Now check the file:
+
+cat newfile1.txt
+
+The previous content is replaced by:
+
+I like food.
+
+APPENDING WITH >>
+
+To add new content without deleting the existing content, use two
+greater-than symbols:
+
+>>
+
+echo "This food is good." >> newfile1.txt
+
+Now display the file:
+
+cat newfile1.txt
+
+It contains both lines:
+
+I like food. This food is good.
+
+IMPORTANT PERMISSION NOTE
+
+To redirect output into an existing file, the user needs write
+permission for that file. The user also needs suitable permissions
+to access the destination directory.
+
+41. TEXT EDITORS IN LINUX — vi AND vim
+
+Linux provides text editors that allow users to create and modify files
+directly from the terminal.
+
+Some common editors include:
+
+- vi: a traditional text editor available on many Unix-like systems.
+- vim: an improved version of vi with additional features.
+- nano: a simple editor that is often easier for beginners.
+- emacs: a powerful and highly configurable editor.
+
+The vi editor is important because it is widely available and can be
+used in a terminal without a graphical interface.
+
+OPENING OR CREATING A FILE
+
+Syntax:
+
+vi filename
+
+vi newfile1.txt
+
+If the file exists, vi opens it. If it does not exist, vi can create it
+when you save the file.
+
+Vim is an improved version of vi. For the basic operations in this
+course, vi and vim work in a similar way.
+
+THE THREE MODES OF vi
+
+The vi editor has three main modes:
+
+5. Command Mode Used to move around the document, delete text, copy text, paste text and perform other editing actions.
+
+6. Insert Mode Used to type and add text to the document.
+
+7. Ex Mode Used for file-related commands such as saving, opening and quitting.
+
+When vi opens a file, it starts in command mode.
+
+To return to command mode from another mode, press Esc.
+
+42. COMMAND MODE MOVEMENT IN vi
+
+In command mode, you can move the cursor using keyboard keys.
+
+Common movement keys:
+
+h Move one character left j Move one line down k Move one line up l Move one character right w Move one word forward b Move one word backward ^ Move to the beginning of the line $ Move to the end of the line
+
+The arrow keys can also be used in many versions of vim.
+
+REPEATING A MOVEMENT
+
+You can place a number before a movement key to repeat it.
+
+5h Move five characters to the left 3w Move three words forward
+
+MOVING TO A PARTICULAR LINE
+
+Type the line number followed by G:
+
+5G
+
+This moves the cursor to line 5.
+
+Other useful commands:
+
+1G Go to the first line gg Go to the first line G Go to the last line
+
+To display the current line number, press Ctrl+G.
+
+43. COMMAND MODE ACTIONS IN vi
+
+The vi editor uses commands for cutting, copying and pasting text.
+
+The common terms are:
+
+- Delete (d): removes text and places it in the buffer.
+- Yank (y): copies text into the buffer without removing it.
+- Put (p or P): pastes the text stored in the buffer.
+
+DELETE
+
+dd Delete the current line 3dd Delete the current line and the next two lines dw Delete the current word d3w Delete the next three words d4h Delete four characters to the left
+
+CHANGE
+
+The c command is similar to delete, but after removing the selected
+text, vi enters insert mode so you can immediately type replacement
+text.
+
+cc Change the current line cw Change the current word c3w Change the next three words c5h Change five characters to the left
+
+YANK (COPY)
+
+The y command copies text into the buffer without deleting it.
+
+yy Copy the current line 3yy Copy the current line and the next two lines yw Copy the current word y$ Copy from the cursor to the end of the line
+
+PUT (PASTE)
+
+Use p or P to paste the text stored in the buffer:
+
+p Paste after the cursor P Paste before the cursor
+
+Remember:
+
+- d = delete
+- y = yank (copy)
+- p = put after the cursor
+- P = put before the cursor
+
+44. SEARCHING IN vi
+
+The vi editor has a built-in search feature.
+
+SEARCH FORWARD
+
+Press /, type the text you want to find, and press Enter.
+
+/linux
+
+The cursor moves to the next matching occurrence of linux.
+
+SEARCH BACKWARD
+
+Press ?, type the search term, and press Enter.
+
+MOVE BETWEEN MATCHES
+
+After searching:
+
+n Move to the next match in the same search direction N Move to the previous match
+
+The search wraps around the document when it reaches the end or
+beginning.
+
+45. INSERT MODE IN vi
+
+Insert mode is used to add or type text in a file.
+
+Press one of the following keys from command mode:
+
+a Start inserting immediately after the cursor A Start inserting at the end of the current line i Start inserting immediately before the cursor I Start inserting at the beginning of the current line o Open a new blank line below the current line O Open a new blank line above the current line
+
+After pressing one of these keys, type your text.
+
+When you finish typing, press Esc to return to command mode.
+
+46. EX MODE — SAVING AND QUITTING vi
+
+Ex mode is used for file-related operations. To enter an Ex command,
+first press Esc to make sure you are in command mode, then type a colon
+(:).
+
+Common Ex commands:
+
+:w Save the current file :w filename Save a copy using the given filename :w! Force writing to the current file :1 Move to line number 1 :e filename Open the specified file :q Quit if there are no unsaved changes :q! Quit without saving changes
+
+SAVE AND QUIT
+
+A commonly used command is:
+
+:wq
+
+It saves the file and then quits the editor.
+
+You can also use:
+
+ZZ
+
+This saves and exits when there are changes to save.
